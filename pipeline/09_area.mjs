@@ -11,8 +11,9 @@
 // 出力: areas/<区>/README.md（入口）、areas/<区>/<話題>.md（その区の記録の年表）、areas/<区>/地名.md（地名ごとの記録）、areas/README.md（--all のとき）
 // - 地域は工程5で AI が付けたもの。「全市」の話の中で区に具体的に触れたものにも区が付く（docs/作り方.md の工程4）
 // - 主の話題の記録と、副の話題として付いた記録の両方を載せる（副は「（副）」）
-// - GitHub の画面で開けるよう、どのファイルも 1MB 未満にする。超えるものは、並びのまま <名前>.md、<名前>2.md… に分け、各ファイルの頭と終わりに前後へのリンクを置く
-//   （2026年11月19日に10区を作ったとき、中央区・南区の地名.md と、中央区の「都心のまちづくり」が 1MB を超えた）
+// - GitHub の画面で Markdown として表示できるよう、どのファイルも38万バイト未満にする。超えるものは、並びのまま <名前>.md、<名前>2.md… に分け、
+//   各ファイルの頭と終わりに前後へのリンクを置く。2026年11月19日に公開して確かめると、GitHub は 396,488バイトのファイルは表示し、
+//   420,115バイト以上のファイルは表示しなかった（ページの richTextTruncated が true になり、Markdown として描画されない）
 // - 作り直すときは、そのまま流せば上書きする（区のフォルダを消してから書く）
 
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
@@ -27,7 +28,7 @@ const ROOT = path.join(here, "..");
 const WARDS = ["中央区", "北区", "東区", "白石区", "厚別区", "豊平区", "清田区", "南区", "西区", "手稲区"];
 const PLACE_MIN = 2; // 地名.md に見出しを立てる記録の数
 const RECENT = 30; // 入口に載せる最近の記録の数
-const MAX_BYTES = 1_000_000; // 1ファイルの上限（GitHub の画面で開けるように）
+const MAX_BYTES = 380_000; // 1ファイルの上限（GitHub の画面で Markdown として表示できるのは約40万バイトまで。上の説明）
 const HEAD_ROOM = 20_000; // ファイルの頭と終わり（説明、任期の表、前後へのリンク）に取っておく分
 
 function parseArgs(argv) {
@@ -50,7 +51,7 @@ const short = (r) => `**${r.date}** ${oneLine(r.title)}（${r.topic}${r.question
 // 分けたファイルの名前: 1つめは <名前>.md、2つめから <名前>2.md、<名前>3.md…
 const partFile = (base, i) => `${base}${i ? i + 1 : ""}.md`;
 
-// 見出しごとの項目の並びを、並びのまま 1MB 未満のファイルに詰める。
+// 見出しごとの項目の並びを、並びのまま MAX_BYTES 未満のファイルに詰める。
 // sections: [{ title, intro: [行], items: [{ key, text }] }]。見出しの途中で分かれたら、次のファイルに「（続き）」の見出しを立てる。
 // 返り値: pages（ファイルごとの本文の行）、where（項目の key → ファイルの番号）、start（見出し → 最初に出るファイルの番号）
 function paginate(sections) {
@@ -91,7 +92,7 @@ async function writePages(dir, base, pages, headOf) {
   let bytes = 0;
   for (let i = 0; i < pages.length; i++) {
     const text = [...headOf(i), ...pager(base, i, pages.length), ...pages[i], ...pager(base, i, pages.length)].join("\n") + "\n";
-    if (bytesOf(text) >= MAX_BYTES) throw new Error(`${partFile(base, i)} が 1MB を超えた（${bytesOf(text)}バイト）。HEAD_ROOM を見直す`);
+    if (bytesOf(text) >= MAX_BYTES) throw new Error(`${partFile(base, i)} が上限（${MAX_BYTES}バイト）を超えた（${bytesOf(text)}バイト）。HEAD_ROOM を見直す`);
     await writeFile(path.join(dir, partFile(base, i)), text);
     bytes += bytesOf(text);
   }
