@@ -11,9 +11,12 @@
 // 出力: areas/<区>/README.md（入口）、areas/<区>/<話題>.md（その区の記録の年表）、areas/<区>/地名.md（地名ごとの記録）、areas/README.md（--all のとき）
 // - 地域は工程5で AI が付けたもの。「全市」の話の中で区に具体的に触れたものにも区が付く（docs/作り方.md の工程4）
 // - 主の話題の記録と、副の話題として付いた記録の両方を載せる（副は「（副）」）
-// - GitHub の画面で Markdown として表示できるよう、どのファイルも38万バイト未満にする。超えるものは、並びのまま <名前>.md、<名前>2.md… に分け、
-//   各ファイルの頭と終わりに前後へのリンクを置く。2026年11月19日に公開して確かめると、GitHub は 396,488バイトのファイルは表示し、
-//   420,115バイト以上のファイルは表示しなかった（ページの richTextTruncated が true になり、Markdown として描画されない）
+// - GitHub の画面で Markdown として表示できるよう、話題の年表は36万バイト、地名の一覧は24万バイトまでにする。超えるものは、並びのまま
+//   <名前>.md、<名前>2.md… に分け、各ファイルの頭と終わりに前後へのリンクを置く。
+//   上限は2026年11月19日に公開して確かめた。GitHub の画面は大きいファイルを Markdown として描画しない（ページの richTextTruncated が true になる）。
+//   バイト数だけでは決まらず、相対リンクの多いファイルほど早く当たる（描画後の HTML の大きさで決まるとみられる）。
+//   話題の年表（1件1KB ほどにリンク1本）は 396,488バイトでも表示された。地名の一覧（1件150バイトほどにリンク1本）は 257,855バイト（リンク1,128本）は
+//   表示され、360,000バイト前後（リンク約1,550本）は表示されなかった
 // - 作り直すときは、そのまま流せば上書きする（区のフォルダを消してから書く）
 
 import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
@@ -28,7 +31,8 @@ const ROOT = path.join(here, "..");
 const WARDS = ["中央区", "北区", "東区", "白石区", "厚別区", "豊平区", "清田区", "南区", "西区", "手稲区"];
 const PLACE_MIN = 2; // 地名.md に見出しを立てる記録の数
 const RECENT = 30; // 入口に載せる最近の記録の数
-const MAX_BYTES = 380_000; // 1ファイルの上限（GitHub の画面で Markdown として表示できるのは約40万バイトまで。上の説明）
+const MAX_TIMELINE = 360_000; // 話題の年表の1ファイルの上限（上の説明）
+const MAX_PLACES = 240_000; // 地名の一覧の1ファイルの上限（リンクが多いので小さくする）
 const HEAD_ROOM = 20_000; // ファイルの頭と終わり（説明、任期の表、前後へのリンク）に取っておく分
 
 function parseArgs(argv) {
@@ -51,11 +55,11 @@ const short = (r) => `**${r.date}** ${oneLine(r.title)}（${r.topic}${r.question
 // 分けたファイルの名前: 1つめは <名前>.md、2つめから <名前>2.md、<名前>3.md…
 const partFile = (base, i) => `${base}${i ? i + 1 : ""}.md`;
 
-// 見出しごとの項目の並びを、並びのまま MAX_BYTES 未満のファイルに詰める。
+// 見出しごとの項目の並びを、並びのまま maxBytes 未満のファイルに詰める。
 // sections: [{ title, intro: [行], items: [{ key, text }] }]。見出しの途中で分かれたら、次のファイルに「（続き）」の見出しを立てる。
 // 返り値: pages（ファイルごとの本文の行）、where（項目の key → ファイルの番号）、start（見出し → 最初に出るファイルの番号）
-function paginate(sections) {
-  const budget = MAX_BYTES - HEAD_ROOM;
+function paginate(sections, maxBytes) {
+  const budget = maxBytes - HEAD_ROOM;
   const pages = [];
   const where = new Map();
   const start = new Map();
@@ -85,14 +89,14 @@ function pager(base, i, n) {
   if (n <= 1) return [];
   const prev = i > 0 ? `前: [${partFile(base, i - 1)}](${enc(partFile(base, i - 1))})` : null;
   const next = i < n - 1 ? `次: [${partFile(base, i + 1)}](${enc(partFile(base, i + 1))})` : null;
-  return ["", `> ${n}つのファイルに分けた${i + 1}つめ。${[prev, next].filter(Boolean).join("　")}`];
+  return ["", `> ${n}ファイルに分けた${i + 1}番め。${[prev, next].filter(Boolean).join("　")}`];
 }
 
-async function writePages(dir, base, pages, headOf) {
+async function writePages(dir, base, pages, headOf, maxBytes) {
   let bytes = 0;
   for (let i = 0; i < pages.length; i++) {
     const text = [...headOf(i), ...pager(base, i, pages.length), ...pages[i], ...pager(base, i, pages.length)].join("\n") + "\n";
-    if (bytesOf(text) >= MAX_BYTES) throw new Error(`${partFile(base, i)} が上限（${MAX_BYTES}バイト）を超えた（${bytesOf(text)}バイト）。HEAD_ROOM を見直す`);
+    if (bytesOf(text) >= maxBytes) throw new Error(`${partFile(base, i)} が上限（${maxBytes}バイト）を超えた（${bytesOf(text)}バイト）。HEAD_ROOM を見直す`);
     await writeFile(path.join(dir, partFile(base, i)), text);
     bytes += bytesOf(text);
   }
@@ -122,7 +126,7 @@ async function writeArea(ward, records, topics) {
     xs.sort((a, b) => byDate(a.r, b.r));
     const main = xs.filter((x) => !x.sub);
     const terms = [...new Set(xs.map((x) => x.r.term))].sort();
-    const { pages, where, start } = paginate(terms.map((p) => ({ title: termTitle(p), intro: [], items: xs.filter((x) => x.r.term === p).map((x) => ({ key: x.r.id, text: entry(x.r, x.sub) })) })));
+    const { pages, where, start } = paginate(terms.map((p) => ({ title: termTitle(p), intro: [], items: xs.filter((x) => x.r.term === p).map((x) => ({ key: x.r.id, text: entry(x.r, x.sub) })) })), MAX_TIMELINE);
     for (const [id, i] of where) recFile.set(`${name}\t${id}`, partFile(name, i));
     const termLink = (p) => `${start.get(termTitle(p)) ? enc(partFile(name, start.get(termTitle(p)))) : ""}#${anchor(termTitle(p))}`;
     const headOf = (i) =>
@@ -141,8 +145,8 @@ async function writeArea(ward, records, topics) {
             ...terms.map((p) => `| [${termTitle(p)}](${termLink(p)}) | ${xs.filter((x) => x.r.term === p && !x.sub).length} | ${xs.filter((x) => x.r.term === p && x.sub).length} |`),
           ].filter((l) => l !== null)
         : [`# ${ward}の「${name}」 年表（${i + 1}）`, "", `- [${ward}の入口に戻る](README.md)　[任期の表](${enc(partFile(name, 0))})`];
-    bytes += await writePages(dir, name, pages, headOf);
-    if (pages.length > 1) split.push(`${name}.md（${pages.length}つ）`);
+    bytes += await writePages(dir, name, pages, headOf, MAX_TIMELINE);
+    if (pages.length > 1) split.push(`${name}.md（${pages.length}ファイル）`);
     table.push({ t, name, main: main.length, sub: xs.length - main.length, first: xs[0].r.date.slice(0, 4), last: xs.at(-1).r.date });
   }
 
@@ -158,7 +162,7 @@ async function writeArea(ward, records, topics) {
   const viaTopic = (r) => `**${r.date}** ${oneLine(r.title)}（[${r.topic}](${enc(recFile.get(`${r.topic}\t${r.id}`) ?? `${r.topic}.md`)})${r.questioner ? `、${r.questioner}・${r.faction ?? "会派不明"}` : ""}）`;
   const placeSections = big.map(([p, rs]) => ({ title: p, intro: [`${rs.length}件（${topicsOf(rs)}）`, ""], items: rs.map((r) => ({ text: `- ${viaTopic(r)}` })) }));
   if (small.length) placeSections.push({ title: "1件だけの地名", intro: [], items: small.map(([p, rs]) => ({ text: `- ${p}: ${viaTopic(rs[0])}` })) });
-  const place = paginate(placeSections);
+  const place = paginate(placeSections, MAX_PLACES);
   const placeHead = (i) =>
     i === 0
       ? [
@@ -169,8 +173,8 @@ async function writeArea(ward, records, topics) {
           `- [${ward}の入口に戻る](README.md)`,
         ]
       : [`# ${ward}の記録に出てくる地名（${i + 1}）`, "", `- [${ward}の入口に戻る](README.md)`];
-  bytes += await writePages(dir, "地名", place.pages, placeHead);
-  if (place.pages.length > 1) split.push(`地名.md（${place.pages.length}つ）`);
+  bytes += await writePages(dir, "地名", place.pages, placeHead, MAX_PLACES);
+  if (place.pages.length > 1) split.push(`地名.md（${place.pages.length}ファイル）`);
   const placeLink = (p) => `${enc(partFile("地名", place.start.get(p) ?? 0))}#${enc(anchor(p))}`;
 
   // 入口
@@ -189,7 +193,7 @@ async function writeArea(ward, records, topics) {
     "",
     "- 話題の一覧（札幌市全体）: [topics/README.md](../../topics/README.md)",
     "- ほかの区: [10区の一覧](../README.md)",
-    `- 地名ごと: [${ward}の記録に出てくる地名](地名.md)（${big.length}個${place.pages.length > 1 ? `。${place.pages.length}つのファイルに分けた` : ""}。多いもの: ${big.slice(0, 8).map(([p, rs]) => `[${p}](${placeLink(p)})（${rs.length}件）`).join("、")}）`,
+    `- 地名ごと: [${ward}の記録に出てくる地名](地名.md)（${big.length}個${place.pages.length > 1 ? `。${place.pages.length}ファイルに分けた` : ""}。多いもの: ${big.slice(0, 8).map(([p, rs]) => `[${p}](${placeLink(p)})（${rs.length}件）`).join("、")}）`,
     "",
     `## 話題ごと（細かく分けた分野）`,
     "",
