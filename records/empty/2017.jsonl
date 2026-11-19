@@ -1,0 +1,6 @@
+{"exchange":191104,"date":"2017-07-03","type":"説明","committee":"大都市税財政制度・人口減少対策調査特別委員会","agenda":"平成30年度国家予算等に対する札幌市重点要望事項","model":"claude-haiku-5-5","prompt":"05_classify_v3"}
+{"exchange":190411,"date":"2017-05-30","type":"質疑","committee":"財政市民委員会","agenda":"工事請負契約の締結等に関する議案第11号から第14号までの４件","model":"claude-haiku-5-5","prompt":"05_classify_v3"}
+{"exchange":194622,"date":"2017-12-13","type":"委員長報告","committee":null,"agenda":"日程第１　議案第１号から第63号までの議案63件、陳情第245号、以上64件","model":"claude-haiku-5-5","prompt":"05_classify_v3"}
+{"exchange":191212,"date":"2017-08-31","type":"説明","committee":"大都市税財政制度・人口減少対策調査特別委員会","agenda":"大都市財政の実態に即応する財源の拡充についての要望（通称～「青本」）","model":"claude-haiku-5-5","prompt":"05_classify_v3"}
+{"exchange":191000,"date":"2017-06-13","type":"委員長報告","committee":null,"agenda":"日程第１　議案１号から第９号まで、第15号から第23号まで","model":"claude-haiku-5-5","prompt":"05_classify_v3"}
+{"exchange":191100,"date":"2017-07-03","type":"説明","committee":"大都市税財政制度・人口減少対策調査特別委員会","agenda":"平成30年度国の施策及び予算に関する提案（通称～「白本」）","model":"claude-haiku-5-5","prompt":"05_classify_v3"}

@@ -1,0 +1,11 @@
+# 会議録の原本と途中の生成物（計1GB 近く。01〜03 で作り直せる）
+data/
+*.part
+# API キー
+.env
+.env.*
+# キーの雛形なので Git に入れる
+!.env.example
+# 全市の年表は records/ から 07a_timeline.mjs で数秒で作り直せる（53話題で約100MB。1MB を超えるものが多く、GitHub の画面で開けない）
+topics/*/年表.md
+node_modules/

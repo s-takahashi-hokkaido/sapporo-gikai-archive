@@ -1,0 +1,8 @@
+{
+  "name": "gikai-archive",
+  "private": true,
+  "description": "札幌市議会の会議録を話題別に整理する",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.9.0"
+  }
+}

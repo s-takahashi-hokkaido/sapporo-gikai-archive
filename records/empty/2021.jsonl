@@ -1,0 +1,5 @@
+{"exchange":222471,"date":"2021-04-22","type":"説明","committee":"財政市民委員会","agenda":"関係理事者の紹介及び所管事務概要の説明聴取","model":"claude-haiku-5-5","prompt":"05_classify_v3"}
+{"exchange":219541,"date":"2021-02-24","type":"説明","committee":null,"agenda":"日程第１　議案第42号から第45号まで","model":"claude-haiku-5-5","prompt":"05_classify_v3"}
+{"exchange":224216,"date":"2021-09-08","type":"説明","committee":"大都市税財政制度・災害対策調査特別委員会","agenda":"大都市財政の実態に即応する財源の拡充についての要望（通称～「青本」）","model":"claude-haiku-5-5","prompt":"05_classify_v3"}
+{"exchange":227792,"date":"2021-12-09","type":"委員長報告","committee":null,"agenda":"日程第１　議案第２号、第５号、第11号から第20号まで、第22号から第24号まで、第26号","model":"claude-haiku-5-5","prompt":"05_classify_v3"}
+{"exchange":223501,"date":"2021-06-28","type":"説明","committee":"大都市税財政制度・災害対策調査特別委員会","agenda":"令和４年度国家予算等に対する札幌市重点要望事項","model":"claude-haiku-5-5","prompt":"05_classify_v3"}

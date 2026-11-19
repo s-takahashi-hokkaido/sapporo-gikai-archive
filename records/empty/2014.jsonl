@@ -1,0 +1,4 @@
+{"exchange":165292,"date":"2014-10-06","type":"委員長報告","committee":null,"agenda":"日程第１　議案第８号から第２９号まで、第３２号から第３８号まで","model":"claude-haiku-5-5","prompt":"05_classify_v3"}
+{"exchange":165260,"date":"2014-10-03","type":"説明","committee":"財政市民委員会","agenda":"議案第38号　平成26年度札幌市公債会計補正予算（第３号）","model":"claude-haiku-5-5","prompt":"05_classify_v3"}
+{"exchange":160934,"date":"2014-02-28","type":"質疑","committee":"第一部予算特別委員会","agenda":"平成26年度札幌市一般会計予算中歳入のうち、一般財源、第２款　総務費　第１項　総務管理費中会計室及び財政局関係分、第３項　税務費、第10款　公債費　第１項　公債費、第11款　諸支出金　第１項　財産取得費、第２項　他会計繰出金中財政局関係分、第13款　予備費　第１項　予備費、議案第８号　平成26年度札幌市基金会計予算及び議案第９号　平成26年度札幌市公債会計予算","model":"claude-haiku-5-5","prompt":"05_classify_v3"}
+{"exchange":165789,"date":"2014-10-09","type":"質疑","committee":"第一部決算特別委員会","agenda":"第２款　総務費　第１項　総務管理費中総務局関係分及び第12款　職員費　第１項　職員費","model":"claude-haiku-5-5","prompt":"05_classify_v3"}

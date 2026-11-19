@@ -1,0 +1,5 @@
+{"exchange":152392,"date":"2013-04-08","type":"説明","committee":"財政市民委員会","agenda":"関係理事者の紹介及び所管事務概要の説明聴取","model":"claude-haiku-5-5","prompt":"05_classify_v3"}
+{"exchange":153792,"date":"2013-06-12","type":"説明","committee":null,"agenda":"日程第２　議案第２２号、第２３号、諮問第１号","model":"claude-haiku-5-5","prompt":"05_classify_v3"}
+{"exchange":159735,"date":"2013-12-12","type":"説明","committee":null,"agenda":"日程第３　議案第６４号、第６５号、諮問第１号","model":"claude-haiku-5-5","prompt":"05_classify_v3"}
+{"exchange":155262,"date":"2013-10-03","type":"委員長報告","committee":null,"agenda":"日程第１　議案第９号、第１０号、第１２号、第１８号から第２４号まで、第２９号から第３１号まで、諮問第１号","model":"claude-haiku-5-5","prompt":"05_classify_v3"}
+{"exchange":159712,"date":"2013-12-12","type":"委員長報告","committee":null,"agenda":"日程第２　議案第２号、第４号、第１７号から第６３号まで","model":"claude-haiku-5-5","prompt":"05_classify_v3"}

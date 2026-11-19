@@ -1,0 +1,4 @@
+{"exchange":90967,"date":"2007-06-29","type":"説明","committee":null,"agenda":"日程第２　議案第２８号から第３０号まで、諮問第１号","model":"claude-haiku-5-5","prompt":"05_classify_v3"}
+{"exchange":88308,"date":"2007-02-20","type":"説明","committee":null,"agenda":"日程第２　議案第５５号、諮問第１号","model":"claude-haiku-5-5","prompt":"05_classify_v3"}
+{"exchange":89859,"date":"2007-05-25","type":"質疑","committee":"文教委員会","agenda":null,"model":"claude-haiku-5-5","prompt":"05_classify_v3"}
+{"exchange":87705,"date":"2007-02-06","type":"説明","committee":"財政市民委員会","agenda":"平成18年第４回定例市議会議案第15号　札幌市市民活動促進条例案","model":"claude-haiku-5-5","prompt":"05_classify_v3"}

@@ -1,0 +1,5 @@
+{"exchange":99505,"date":"2008-04-18","type":"質疑","committee":"厚生委員会","agenda":null,"model":"claude-haiku-5-5","prompt":"05_classify_v3"}
+{"exchange":102560,"date":"2008-10-06","type":"説明","committee":null,"agenda":"日程第２　議案第３２号、第３３号、諮問第１号","model":"claude-haiku-5-5","prompt":"05_classify_v3"}
+{"exchange":100929,"date":"2008-06-11","type":"委員長報告","committee":null,"agenda":"日程第１　議案第１号、第３号から第５号まで、第７号から第９号まで、第１１号、第１２号、第１５号から第２１号までの議案１６件、請願第２号、第３号の請願２件、陳情第１３号、第３２４号から第３３１号まで、第５５４号、第６１８号から第７４９号まで、第７５２号から第７５８号まで、第８４０号から第９９０号までの陳情３００件、以上３１８件","model":"claude-haiku-5-5","prompt":"05_classify_v3"}
+{"exchange":102544,"date":"2008-10-06","type":"委員長報告","committee":null,"agenda":"日程第１　議案第９号から第２２号まで、第２４号から第３１号まで","model":"claude-haiku-5-5","prompt":"05_classify_v3"}
+{"exchange":101801,"date":"2008-09-22","type":"説明","committee":"財政市民委員会","agenda":"請願第４号　白石区、厚別区のバス路線存続について市民負担を最小限とすることを求める請願及び北海道中央バス株式会社がバス路線廃止届を取り下げた経緯及び今後の札幌市の対応","model":"claude-haiku-5-5","prompt":"05_classify_v3"}

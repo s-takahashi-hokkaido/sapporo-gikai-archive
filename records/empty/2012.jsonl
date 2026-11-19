@@ -1,0 +1,3 @@
+{"exchange":136763,"date":"2012-02-28","type":"委員長報告","committee":null,"agenda":"日程第１　議案第３４号から第５１号まで、第５３号から第５５号まで、第５７号から第６１号まで","model":"claude-haiku-5-5","prompt":"05_classify_v3"}
+{"exchange":147300,"date":"2012-12-13","type":"委員長報告","committee":null,"agenda":"日程第１　議案第２号、第１１号、第１３号から第２８号まで、第３０号から第３５号までの議案２４件、陳情第３号、第４２号の陳情２件、以上２６件","model":"claude-haiku-5-5","prompt":"05_classify_v3"}
+{"exchange":147327,"date":"2012-12-13","type":"説明","committee":null,"agenda":"日程第１　議案第２号、第１１号、第１３号から第２８号まで、第３０号から第３５号までの議案２４件、陳情第３号、第４２号の陳情２件、以上２６件","model":"claude-haiku-5-5","prompt":"05_classify_v3"}

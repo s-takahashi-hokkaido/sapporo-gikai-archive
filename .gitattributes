@@ -1,0 +1,2 @@
+# 改行は LF にそろえる。Windows でクローンしても、--render で作り直したあと「変更あり」にならないように
+* text=auto eol=lf
