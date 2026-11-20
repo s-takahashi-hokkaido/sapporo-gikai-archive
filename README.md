@@ -13,6 +13,7 @@
 - 「会派ごとの立場」も AI の要約。会派が自ら書いたものではない
 - 地域（区）も AI が付けた。「全市」の話の中で区に具体的に触れたものにも、その区が付いている
 - 会議録は2026年6月ごろの分まで（委員会は8月の一部まで）。会議録検索システムに載るまで数か月かかるので、それより新しい動きは入っていない
+- この資料を使って生じたことについて、作った人は責任を負わない
 
 ## 読むのは2か所だけ
 
@@ -55,9 +56,9 @@
 
 出典の書き方の例:
 
-> 札幌市議会アーカイブ（非公式）「除排雪の体制と費用」、https://github.com/s-takahashi-hokkaido/sapporo-gikai-archive （CC BY 4.0）
+> 札幌市議会アーカイブ（非公式）「除排雪の体制と費用」、https://github.com/s-takahashi-hokkaido/sapporo-gikai-archive
 
-数字や答弁を引くときは、会議録の原文を開いて確かめ、会議録（会議名と日付）も出典に書く。詳しくは [LICENSE-DATA.md](LICENSE-DATA.md)。
+数字や答弁を引くときは、会議録の原文を開いて確かめ、会議録（会議名と日付）も出典に書く。たとえば「札幌市議会 令和6年第2回定例会（2024年5月27日）」。
 
 ## 誤りを見つけたら
 
@@ -73,5 +74,4 @@
 
 ## ライセンス
 
-- プログラム（`pipeline/` など）: MIT（[LICENSE](LICENSE)）
-- 記録とまとめ（`records/`、`bundles/`、`topics/`、`areas/`、`verify/`）: CC BY 4.0（[LICENSE-DATA.md](LICENSE-DATA.md)）
+プログラム（`pipeline/` など）は MIT（[LICENSE](LICENSE)）。
