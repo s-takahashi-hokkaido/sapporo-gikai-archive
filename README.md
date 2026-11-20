@@ -15,7 +15,7 @@
 - 会議録は2026年6月ごろの分まで（委員会は8月の一部まで）。会議録検索システムに載るまで数か月かかるので、それより新しい動きは入っていない
 - この資料を使って生じたことについて、作った人は責任を負わない
 
-## 読むのは2か所だけ
+## 構成
 
 | 入口 | 中身 |
 |---|---|
@@ -24,7 +24,7 @@
 
 区の入口: [中央区](areas/%E4%B8%AD%E5%A4%AE%E5%8C%BA/README.md)、[北区](areas/%E5%8C%97%E5%8C%BA/README.md)、[東区](areas/%E6%9D%B1%E5%8C%BA/README.md)、[白石区](areas/%E7%99%BD%E7%9F%B3%E5%8C%BA/README.md)、[厚別区](areas/%E5%8E%9A%E5%88%A5%E5%8C%BA/README.md)、[豊平区](areas/%E8%B1%8A%E5%B9%B3%E5%8C%BA/README.md)、[清田区](areas/%E6%B8%85%E7%94%B0%E5%8C%BA/README.md)、[南区](areas/%E5%8D%97%E5%8C%BA/README.md)、[西区](areas/%E8%A5%BF%E5%8C%BA/README.md)、[手稲区](areas/%E6%89%8B%E7%A8%B2%E5%8C%BA/README.md)
 
-ほかのフォルダ（話題×4年のまとめ、記録の本体、作るためのプログラム など）は、上の2か所の材料。読まなくてよい。
+ほかのフォルダ（話題×4年のまとめ、記録の本体、作るためのプログラム など）は、上の2か所の材料。
 
 ## 使い方の例
 
@@ -50,7 +50,7 @@
 
 - GitHub の画面で、そのまま読める（スマホでも読める）
 - 手元に置くなら ZIP をダウンロードする: <https://github.com/s-takahashi-hokkaido/sapporo-gikai-archive/archive/refs/heads/main.zip>（約40MB。展開すると約190MB）
-- 展開したら、[Obsidian](https://obsidian.md/) か [VS Code](https://code.visualstudio.com/) の「フォルダを開く」で開く。表とリンクがそのまま使える。メモ帳で開くと表が崩れ、リンクも効かない
+- 展開したら、[Obsidian](https://obsidian.md/) か [VS Code](https://code.visualstudio.com/) の「フォルダを開く」で開く。表とリンクがそのまま使える。メモ帳で開くと表が崩れ、リンクも効かない。
 
 ## 引用するとき
 
